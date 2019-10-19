@@ -34,17 +34,18 @@ locationRouter.route('/:id')
         Locations.findById(req.params.id).then((current)=>{
             var distanceMap=[];
             data.forEach((location)=>{
+                if(location._id!=req.params.id)
                 distanceMap.push({distance : distance(current.latitude, current.longitude, location.latitude, location.longitude, "K"),location :location});
             });
             keysSorted = distanceMap.sort(function(x,y){
                 var a=x.distance;
                 var b=y.distance;
-                return a>b?-1:x>y?1:0;
+                return a>b?1:a>b?0:-1;
             })
-            keysSorted.shift();
-            if(Number(req.query.limit)>keysSorted.length){
+            if(Number(req.query.limit)>keysSorted.length || Number(req.query.limit)==0){
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
+            console.log(keysSorted)
             res.json(keysSorted);
             }
             else{

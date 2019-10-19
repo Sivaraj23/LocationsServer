@@ -10,7 +10,11 @@ var usersRouter = require('./routes/users');
 var locationsRouter = require('./routes/locations');
 var postCSVRouter = require('./routes/postCSV');
 
-
+const cors=require('cors');
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+}
 const url = config.mongoUrl;
 
 const connect = mongoose.connect(url, {
@@ -32,6 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
