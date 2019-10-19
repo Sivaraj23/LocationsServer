@@ -1,3 +1,3 @@
 module.exports = {
-    'mongoUrl' : 'mongodb://localhost:27017/doodleBlue'
+    'mongoUrl': 'mongodb://localhost:27017/doodleBlue'
 }
